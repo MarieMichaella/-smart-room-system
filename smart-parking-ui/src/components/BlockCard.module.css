@@ -1,0 +1,133 @@
+.blockCard {
+  background: white;
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 30px;
+  text-align: center;
+  min-height: 450px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.blockCard:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
+}
+
+.blockCard.available {
+  border-color: #00cc00;
+  background: #f0fdf4;
+}
+
+.blockCard.available:hover {
+  border-color: #00a300;
+}
+
+.blockCard.full {
+  border-color: #ff0000;
+  background: #fef2f2;
+}
+
+.blockCard.full:hover {
+  border-color: #cc0000;
+}
+
+.blockName {
+  font-size: 36px;
+  font-weight: bold;
+  margin-bottom: 30px;
+  letter-spacing: 1px;
+  color: #1f2937;
+}
+
+.statusIcon {
+  margin: 20px 0;
+  display: flex;
+  justify-content: center;
+  min-height: 130px;
+}
+
+.iconAvailable,
+.iconFull {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.statusText {
+  font-size: 28px;
+  font-weight: bold;
+  margin-top: 20px;
+  letter-spacing: 1px;
+}
+
+.blockCard.available .statusText {
+  color: #00cc00;
+}
+
+.blockCard.full .statusText {
+  color: #ff0000;
+}
+
+.lastUpdate {
+  font-size: 12px;
+  color: #6b7280;
+  margin-top: 20px;
+  font-weight: 500;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .blockCard {
+    padding: 20px;
+    min-height: 380px;
+  }
+
+  .blockName {
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
+
+  .statusText {
+    font-size: 24px;
+  }
+
+  .lastUpdate {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 480px) {
+  .blockCard {
+    padding: 15px;
+    min-height: 320px;
+  }
+
+  .blockName {
+    font-size: 24px;
+    margin-bottom: 15px;
+  }
+
+  .statusIcon {
+    min-height: 100px;
+  }
+
+  .statusIcon svg {
+    width: 100px;
+    height: 100px;
+  }
+
+  .statusText {
+    font-size: 20px;
+    margin-top: 15px;
+  }
+
+  .lastUpdate {
+    font-size: 10px;
+    margin-top: 15px;
+  }
+}

@@ -1,0 +1,86 @@
+.statCard {
+  background: white;
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 24px;
+  text-align: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.statCard:hover {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
+}
+
+.statLabel {
+  font-size: 14px;
+  font-weight: 600;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 12px;
+}
+
+.statValue {
+  font-size: 32px;
+  font-weight: 800;
+  color: #1f2937;
+  margin-bottom: 8px;
+}
+
+.statSubtext {
+  font-size: 12px;
+  color: #9ca3af;
+  display: block;
+}
+
+.statCard.success {
+  border-color: #00cc00;
+  background: #f0fdf4;
+}
+
+.statCard.success .statValue {
+  color: #00cc00;
+}
+
+.statCard.danger {
+  border-color: #ff0000;
+  background: #fef2f2;
+}
+
+.statCard.danger .statValue {
+  color: #ff0000;
+}
+
+.statCard.info {
+  border-color: #007bff;
+  background: #eff6ff;
+}
+
+.statCard.info .statValue {
+  color: #007bff;
+}
+
+.statCard.warning {
+  border-color: #fbbf24;
+  background: #fffbeb;
+}
+
+.statCard.warning .statValue {
+  color: #f59e0b;
+}
+
+@media (max-width: 768px) {
+  .statCard {
+    padding: 16px;
+  }
+
+  .statValue {
+    font-size: 24px;
+  }
+
+  .statLabel {
+    font-size: 12px;
+  }
+}
