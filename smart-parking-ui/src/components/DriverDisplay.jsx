@@ -6,16 +6,16 @@ import BlockCard from './BlockCard';
 function DriverDisplay() {
   const [blocks, setBlocks] = useState({
     'L1-L2': { 
-      available: true, 
-      lastUpdate: new Date()
-    },
-    'L3-L4': { 
-      available: false, 
+      available: true,
+      totalSpots: 1,
+      occupiedSpots: 0,
+      availableSpots: 1,
       lastUpdate: new Date()
     }
   });
 
-  const [connected, setConnected] = useState(true);
+  const [currentSpot, setCurrentSpot] = useState(null);
+  const [connected, setConnected] = useState(false);
   const socketRef = useRef(null);
 
   useEffect(() => {
@@ -30,6 +30,7 @@ function DriverDisplay() {
     });
     
     newSocket.on('disconnect', () => {
+      console.log('Disconnected from server');
       setConnected(false);
     });
     
@@ -38,39 +39,26 @@ function DriverDisplay() {
       setBlocks(data);
     });
     
-    newSocket.on('block_update', (update) => {
-      console.log('Block update:', update);
-      setBlocks(prevBlocks => ({
-        ...prevBlocks,
-        [update.block]: {
-          ...prevBlocks[update.block],
-          available: update.available,
-          lastUpdate: new Date()
-        }
-      }));
+    newSocket.on('block_update', (updatedBlocks) => {
+      console.log('Block update:', updatedBlocks);
+      setBlocks(updatedBlocks);
     });
-    
-    // Update timestamp every 5 seconds 
-    // const interval = setInterval(() => {
-    //   setBlocks(prev => ({
-    //     ...prev,
-    //     'L1-L2': {
-    //       ...prev['L1-L2'],
-    //       lastUpdate: new Date()
-    //     }
-    //   }));
-    // }, 5000);
+
+    // Listen for individual spot updates
+    newSocket.on('spot_update', (spotData) => {
+      console.log('Spot update:', spotData);
+      setCurrentSpot(spotData);
+    });
   
     return () => {
       newSocket.close();
-      // clearInterval(interval);  // if using interval
     };
   }, []);
 
   const formatTime = (date) => {
     if (!date) return 'Never';
     const now = new Date();
-    const diffMs = now.getTime() - date.getTime();
+    const diffMs = now.getTime() - new Date(date).getTime();
     const diffMins = Math.floor(diffMs / 60000);
     
     if (diffMins < 1) return 'Just now';
@@ -79,7 +67,7 @@ function DriverDisplay() {
     const hours = Math.floor(diffMins / 60);
     if (hours < 24) return `${hours}h ago`;
     
-    return date.toLocaleDateString();
+    return new Date(date).toLocaleDateString();
   };
 
   return (
@@ -100,14 +88,19 @@ function DriverDisplay() {
 
       {/* Blocks Grid */}
       <div className={styles.blocksContainer}>
-        {Object.entries(blocks).map(([blockName, blockData]) => (
-          <BlockCard
-            key={blockName}
-            blockName={blockName}
-            available={blockData.available}
-            lastUpdate={blockData.lastUpdate}
-          />
-        ))}
+        {Object.entries(blocks)
+          .filter(([blockName, blockData]) => blockName && blockData)
+          .map(([blockName, blockData]) => (
+            <BlockCard
+              key={blockName}
+              blockName={blockName}
+              available={blockData.available}
+              totalSpots={blockData.totalSpots}
+              availableSpots={blockData.availableSpots}
+              occupiedSpots={blockData.occupiedSpots}
+              lastUpdate={blockData.lastUpdate}
+            />
+          ))}
       </div>
 
       {/* Footer Section */}

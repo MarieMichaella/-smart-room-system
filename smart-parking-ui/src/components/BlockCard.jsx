@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './BlockCard.module.css';
 
-function BlockCard({ blockName, available, lastUpdate }) {
+function BlockCard({ blockName, available, totalSpots, availableSpots, occupiedSpots, lastUpdate }) {
   return (
     <div className={`${styles.blockCard} ${available ? styles.available : styles.full}`}>
       <div className={styles.blockName}>{blockName}</div>
@@ -28,11 +28,27 @@ function BlockCard({ blockName, available, lastUpdate }) {
         {available ? 'AVAILABLE' : 'FULL'}
       </div>
       
+      {/* Spot counts - matching your existing style */}
+      <div className={styles.spotCounts}>
+        <div className={styles.countItem}>
+          <span className={styles.countValue}>{availableSpots || 0}</span>
+          <span className={styles.countLabel}>Available</span>
+        </div>
+        <div className={styles.countItem}>
+          <span className={styles.countValue}>{occupiedSpots || 0}</span>
+          <span className={styles.countLabel}>Occupied</span>
+        </div>
+        <div className={styles.countItem}>
+          <span className={styles.countValue}>{totalSpots || 0}</span>
+          <span className={styles.countLabel}>Total</span>
+        </div>
+      </div>
+      
       {lastUpdate && (
         <div className={styles.lastUpdate}>
-            Updated: {new Date(lastUpdate).toLocaleTimeString()}
+          Updated: {new Date(lastUpdate).toLocaleTimeString()}
         </div>
-        )}
+      )}
     </div>
   );
 }

@@ -131,3 +131,66 @@
     margin-top: 15px;
   }
 }
+
+/* Spot Counts Section - matches existing style */
+.spotCounts {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  margin-top: 25px;
+  padding-top: 20px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.countItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.countValue {
+  font-size: 32px;
+  font-weight: bold;
+  color: #1f2937;
+  line-height: 1;
+}
+
+.countLabel {
+  font-size: 12px;
+  color: #6b7280;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+}
+
+
+@media (max-width: 768px) {
+  .spotCounts {
+    margin-top: 20px;
+    padding-top: 15px;
+  }
+
+  .countValue {
+    font-size: 28px;
+  }
+
+  .countLabel {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 480px) {
+  .spotCounts {
+    margin-top: 15px;
+    padding-top: 12px;
+  }
+
+  .countValue {
+    font-size: 24px;
+  }
+
+  .countLabel {
+    font-size: 10px;
+  }
+}
